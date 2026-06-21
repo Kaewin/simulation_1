@@ -9,18 +9,18 @@ enum {T_WALL = 0,
       T_DOOR = 5,
     };
 
-struct TileDef {
+typedef struct {
     char glyph;
     bool solid;
-};
+} TileDef;
 
-TileDef array[6] = {{'#', true},
+TileDef tiles[6] = {{'#', true},
                     {'.', false},
                     {'T', true},
                     {'~', true},
                     {'^', true},
                     {'+', false}
-                }
+                };
 
 int main(void) {
     printf("Hello, World!\n");
