@@ -22,7 +22,12 @@ struct Input {
     float move_y = 0.0f;   
 };
 
-void update(float dt, const Input& in);   // update gains the tick's input
+struct Player {
+    float x = 0.0f, y = 0.0f;    
+    float px = 0.0f, py = 0.0f;  
+};
+
+void update(float dt, const Input& in); 
 
 class World {
 public:
