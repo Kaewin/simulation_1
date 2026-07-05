@@ -35,6 +35,17 @@ World::World(int width, int height, uint64_t seed)
         pick_new_target(a);
         agents_.push_back(a);
     }
+
+    int cx = w_ / 2;
+    int cy = h_ / 2;
+    while (solid(cx, cy)) {
+        cx += 1;                     
+        if (cx >= w_) { cx = 0; cy += 1; }   
+    }
+    player_.x = static_cast<float>(cx);
+    player_.y = static_cast<float>(cy);
+    player_.px = player_.x;          
+    player_.py = player_.y;          
 }
 
 bool World::solid(int x, int y) const {
@@ -51,8 +62,27 @@ void World::pick_new_target(Agent& a) {
     a.tx = a.x; a.ty = a.y;   
 }
 
-void World::update(float dt) {
+void World::update(float dt, const Input& in) {
+    player_.px = player_.x;
+    player_.py = player_.y;
     const float speed = 2.5f;  
+    const float player_speed = 4.0f;   
+
+    float mx = in.move_x;
+    float my = in.move_y;
+    float len = std::sqrt(mx * mx + my * my);
+    if (len > 1.0f) {
+        mx /= len;
+        my /= len;
+    }
+
+    float nx = player_.x + mx * player_speed * dt;
+    if (!solid(static_cast<int>(nx), static_cast<int>(player_.y)))
+        player_.x = nx;
+
+    float ny = player_.y + my * player_speed * dt;
+    if (!solid(static_cast<int>(player_.x), static_cast<int>(ny)))
+        player_.y = ny;
 
     for (Agent& a : agents_) {
         a.px = a.x;

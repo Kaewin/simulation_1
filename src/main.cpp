@@ -3,9 +3,11 @@
 #include "render.hpp"
 
 int main() {
-    const int   WORLD_W  = 48;
-    const int   WORLD_H  = 32;
+    const int   WORLD_W  = 256;
+    const int   WORLD_H  = 256;
     const int   TILE_PX  = 20;
+    const int   SCREEN_W = 960;   // fixed viewport, no longer WORLD_W * TILE_PX
+    const int   SCREEN_H = 640;
     const uint64_t SEED  = 1234;
 
     const int   SCREEN_W = WORLD_W * TILE_PX;
@@ -24,8 +26,12 @@ int main() {
         if (frame > 0.25f) frame = 0.25f;   
         accumulator += frame;
 
+        Input in;
+        in.move_x = static_cast<float>(IsKeyDown(KEY_D) - IsKeyDown(KEY_A));
+        in.move_y = static_cast<float>(IsKeyDown(KEY_S) - IsKeyDown(KEY_W));
+
         while (accumulator >= FIXED_DT) {
-            world.update(FIXED_DT);         
+            world.update(FIXED_DT, in);         
             accumulator -= FIXED_DT;
         }
 
