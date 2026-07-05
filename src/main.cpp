@@ -25,11 +25,11 @@ int main() {
         accumulator += frame;
 
         Input in;
-        in.move_x = (float)(IsKeyDown(KEY_D) - IsKeyDown(KEY_A));
-        in.move_y = (float)(IsKeyDown(KEY_S) - IsKeyDown(KEY_W));   
+        in.move_x = static_cast<float>(IsKeyDown(KEY_D) - IsKeyDown(KEY_A));
+        in.move_y = static_cast<float>(IsKeyDown(KEY_S) - IsKeyDown(KEY_W));
 
         while (accumulator >= FIXED_DT) {
-            world.update(FIXED_DT);         
+            world.update(FIXED_DT, in);         
             accumulator -= FIXED_DT;
         }
 

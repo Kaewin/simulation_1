@@ -27,13 +27,12 @@ struct Player {
     float px = 0.0f, py = 0.0f;  
 };
 
-void update(float dt, const Input& in); 
 
 class World {
 public:
     World(int width, int height, uint64_t seed);
 
-    void update(float dt);
+    void update(float dt, const Input& in); 
 
     const Player& player() const { return player_; }
 
@@ -45,10 +44,10 @@ public:
 
 private:
     int w_, h_;
-    std::vector<Tile>  tiles_;    
+    std::vector<Tile>  tiles_;
     std::vector<Agent> agents_;
+    Player player_;              // <- add this
     uint64_t rng_;
-
-    uint32_t next_random();       
+    uint32_t next_random();
     void pick_new_target(Agent& a);
 };

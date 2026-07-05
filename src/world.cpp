@@ -35,6 +35,17 @@ World::World(int width, int height, uint64_t seed)
         pick_new_target(a);
         agents_.push_back(a);
     }
+
+    int cx = w_ / 2;
+    int cy = h_ / 2;
+    while (solid(cx, cy)) {
+        cx += 1;                     
+        if (cx >= w_) { cx = 0; cy += 1; }   
+    }
+    player_.x = static_cast<float>(cx);
+    player_.y = static_cast<float>(cy);
+    player_.px = player_.x;          
+    player_.py = player_.y;          
 }
 
 bool World::solid(int x, int y) const {
@@ -51,7 +62,9 @@ void World::pick_new_target(Agent& a) {
     a.tx = a.x; a.ty = a.y;   
 }
 
-void World::update(float dt) {
+void World::update(float dt, const Input& in) {
+    player_.px = player_.x;
+    player_.py = player_.y;
     const float speed = 2.5f;  
 
     for (Agent& a : agents_) {
