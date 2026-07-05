@@ -8,6 +8,7 @@ static Color tile_color(Tile t) {
         case Tile::Stone: return Color{112, 112, 120, 255 };
         case Tile::Water: return Color{ 44,  78, 120, 255 };
         default:          return MAGENTA;   
+    }
 }
 
 void render_world(const World& world, float alpha, int tile_px) {
@@ -26,4 +27,12 @@ void render_world(const World& world, float alpha, int tile_px) {
         DrawCircle(static_cast<int>(cx), static_cast<int>(cy),
                    tile_px * 0.35f, Color{220, 180, 90, 255});
     }
+
+    const Player& p = world.player();
+    float pix = p.px + (p.x - p.px) * alpha;
+    float piy = p.py + (p.y - p.py) * alpha;
+    float pcx = (pix + 0.5f) * tile_px;
+    float pcy = (piy + 0.5f) * tile_px;
+    DrawCircle(static_cast<int>(pcx), static_cast<int>(pcy),
+            tile_px * 0.42f, Color{235, 235, 240, 255});    
 }
