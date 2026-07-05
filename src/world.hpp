@@ -17,6 +17,13 @@ struct Agent {
     float tx = 0.0f, ty = 0.0f;
 };
 
+struct Input {
+    float move_x = 0.0f;   
+    float move_y = 0.0f;   
+};
+
+void update(float dt, const Input& in);   // update gains the tick's input
+
 class World {
 public:
     World(int width, int height, uint64_t seed);
