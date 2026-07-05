@@ -4,6 +4,11 @@ project(valdaryn CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Emit build/compile_commands.json so clangd / your editor understands the
+# project (include paths, flags). Point your LSP at the build dir, or symlink:
+#   ln -sf build/compile_commands.json compile_commands.json
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # --- Platform layer dependency: raylib (window / input / GPU blitting only) ---
 # Fetched and built from source so the build is self-contained and portable.
 include(FetchContent)

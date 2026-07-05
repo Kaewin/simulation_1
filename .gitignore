@@ -1,1 +1,25 @@
-build
+# --- Build output ---
+# The build dir holds the fetched raylib source (~tens of MB) plus all
+# compiled artifacts. Never commit it -- it's fully reproducible from source.
+/build/
+build*/
+
+# --- CMake / tooling ---
+compile_commands.json      # generated per-build; point clangd at build/ instead
+CMakeUserPresets.json
+
+# --- Compiled objects, libraries, binaries ---
+*.o
+*.a
+*.so
+*.dylib
+/valdaryn
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+*.swp
+*~
+
+# --- OS cruft ---
+.DS_Store
