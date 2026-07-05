@@ -35,6 +35,8 @@ public:
 
     void update(float dt);
 
+    const Player& player() const { return player_; }
+
     int  width()  const { return w_; }
     int  height() const { return h_; }
     Tile tileAt(int x, int y) const { return tiles_[y * w_ + x]; }
