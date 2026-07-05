@@ -24,6 +24,10 @@ int main() {
         if (frame > 0.25f) frame = 0.25f;   
         accumulator += frame;
 
+        Input in;
+        in.move_x = (float)(IsKeyDown(KEY_D) - IsKeyDown(KEY_A));
+        in.move_y = (float)(IsKeyDown(KEY_S) - IsKeyDown(KEY_W));   
+
         while (accumulator >= FIXED_DT) {
             world.update(FIXED_DT);         
             accumulator -= FIXED_DT;
