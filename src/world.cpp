@@ -66,6 +66,23 @@ void World::update(float dt, const Input& in) {
     player_.px = player_.x;
     player_.py = player_.y;
     const float speed = 2.5f;  
+    const float player_speed = 4.0f;   
+
+    float mx = in.move_x;
+    float my = in.move_y;
+    float len = std::sqrt(mx * mx + my * my);
+    if (len > 1.0f) {
+        mx /= len;
+        my /= len;
+    }
+
+    float nx = player_.x + mx * player_speed * dt;
+    if (!solid(static_cast<int>(nx), static_cast<int>(player_.y)))
+        player_.x = nx;
+
+    float ny = player_.y + my * player_speed * dt;
+    if (!solid(static_cast<int>(player_.x), static_cast<int>(ny)))
+        player_.y = ny;
 
     for (Agent& a : agents_) {
         a.px = a.x;
