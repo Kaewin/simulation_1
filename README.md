@@ -1,4 +1,4 @@
-# Valdaryn — vertical slice 0
+# Valdaryn - Game Engine Working Title
 
 A running skeleton: fixed-timestep sim loop + raylib rendering
 
